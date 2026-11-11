@@ -1,0 +1,23 @@
+{
+  "name": "holdem-duet",
+  "version": "0.1.0",
+  "description": "Heads-up no-limit Texas hold'em between you and your AI: you play on a web page, the AI plays through MCP tools (or the server wakes it with Claude Code on its turn), and you can talk at the table.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {"holdem-duet": "src/cli.mjs", "holdem-duet-mcp": "src/mcp.mjs"},
+  "files": ["src", "web/dist", "README.md", "LICENSE"],
+  "engines": {"node": ">=20"},
+  "scripts": {
+    "start": "node src/cli.mjs",
+    "build": "vite build web",
+    "typecheck": "tsc -p web --noEmit",
+    "test": "node --test test/*.test.mjs && vitest run --root web"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.2", "@testing-library/jest-dom": "^6.9.1", "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.20.4", "@types/react": "^18.3.31", "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0", "jsdom": "^25.0.1", "react": "^18.3.1", "react-dom": "^18.3.1",
+    "typescript": "~5.6", "vite": "^5.4.21", "vitest": "^2.1.9"
+  }
+}

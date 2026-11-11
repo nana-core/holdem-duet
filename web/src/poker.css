@@ -1,0 +1,145 @@
+/* The green table. Colors are the tokens on :root; the layout works down to phone width. */
+:root {
+  --felt: #1f5a45; --felt-2: #17473a; --rail: #4a2e1f; --rail-2: #6b4330; --gold: #e2c27a;
+  --ink: #f4f1e8; --muted: rgba(244, 241, 232, .62); --card: #fbfaf6; --card-ink: #1b1a17; --card-red: #c0392f;
+  --btn: rgba(255, 255, 255, .12); --btn-h: rgba(255, 255, 255, .2); --go: #e2c27a; --go-ink: #2a1d0c; --warn: #f0b66a; --win: #a9e3b4; --lose: #f2a39a;
+  --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; background: radial-gradient(ellipse at 50% 30%, #2a4a3e, #12241d 70%); color: var(--ink); font: 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; color: inherit; }
+a { color: var(--gold); }
+.muted { color: var(--muted); }
+
+.poker { max-width: 760px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; padding: max(10px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); gap: 12px; }
+.bar { display: flex; align-items: baseline; gap: 12px; }
+.bar h1 { margin: 0; font-size: 18px; letter-spacing: .2em; font-weight: 600; }
+.bar .ledger { margin-left: auto; font-size: 12px; color: var(--muted); text-align: right; }
+
+.lobby { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 48px 0; text-align: center; }
+.lobby h1 { margin: 0; letter-spacing: .3em; }
+
+/* the table */
+.table { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; min-height: 380px; padding: 18px 14px;
+  border-radius: 180px / 120px; background: radial-gradient(ellipse at 50% 45%, var(--felt), var(--felt-2) 75%);
+  box-shadow: inset 0 0 0 10px var(--rail), inset 0 0 0 12px var(--rail-2), inset 0 0 40px 12px rgba(0, 0, 0, .35), 0 18px 40px -20px rgba(0, 0, 0, .8); }
+.middle { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.board { display: flex; gap: 6px; }
+.pot { font-size: 14px; color: var(--gold); font-variant-numeric: tabular-nums; }
+.pot .street { color: var(--muted); }
+
+.seat { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 4px; }
+.seat.human { flex-direction: column-reverse; }
+.seat .who { display: flex; align-items: center; gap: 8px; padding: 3px 10px 3px 3px; border-radius: 999px; background: rgba(0, 0, 0, .28); }
+.seat.turn .who { box-shadow: 0 0 0 2px var(--gold), 0 0 16px rgba(226, 194, 122, .5); }
+.seat.won .who { box-shadow: 0 0 0 2px var(--win); }
+.seat .name { font-weight: 600; }
+.seat .stack { font-variant-numeric: tabular-nums; color: var(--gold); }
+.seat .hole { display: flex; gap: 6px; }
+.seat .best { font-size: 12px; color: var(--muted); }
+.seat .bet { font-size: 13px; padding: 1px 10px; border-radius: 999px; background: rgba(0, 0, 0, .35); color: var(--gold); font-variant-numeric: tabular-nums; }
+.seat .bet::before { content: "●"; margin-right: 5px; color: #d9534f; font-size: 10px; vertical-align: 1px; }
+.bubble { max-width: 80%; padding: 6px 12px; border-radius: 14px; background: var(--card); color: var(--card-ink); font-size: 14px; box-shadow: 0 6px 14px -8px rgba(0, 0, 0, .6); overflow-wrap: anywhere; }
+
+/* cards */
+.card { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 46px; height: 66px; border-radius: 7px;
+  background: var(--card); color: var(--card-ink); box-shadow: 0 3px 8px -3px rgba(0, 0, 0, .6); line-height: 1; user-select: none; }
+.card b { font-size: 20px; font-weight: 700; letter-spacing: -.04em; }
+.card i { font-style: normal; font-size: 20px; margin-top: 3px; }
+.card.red { color: var(--card-red); }
+.card.back { background: repeating-linear-gradient(45deg, #7c2b2b 0 5px, #8f3a36 5px 10px); box-shadow: inset 0 0 0 3px var(--card), 0 3px 8px -3px rgba(0, 0, 0, .6); }
+.card.slot { background: transparent; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .16); }
+.card.small { width: 30px; height: 42px; }
+.card.small b, .card.small i { font-size: 14px; }
+
+/* controls */
+.controls { display: flex; flex-direction: column; gap: 10px; }
+.state { padding: 8px 12px; border-radius: 10px; background: rgba(0, 0, 0, .25); font-size: 14px; }
+.state.warn { color: var(--warn); }
+.state.result.win { color: var(--win); }
+.state.result.lose { color: var(--lose); }
+.state.thinking { color: var(--muted); }
+.dots i { font-style: normal; animation: blink 1.2s infinite; }
+.dots i:nth-child(2) { animation-delay: .2s; }
+.dots i:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+
+.acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.acts > button, .say button, .quick button { min-height: 44px; padding: 0 18px; border: 0; border-radius: 12px; background: var(--btn); cursor: pointer; font-weight: 600; }
+.acts > button:hover, .quick button:hover { background: var(--btn-h); }
+.acts button:disabled, .say button:disabled { opacity: .45; cursor: default; }
+.acts .fold { color: var(--lose); }
+.acts .go, .raise .go { background: var(--go); color: var(--go-ink); }
+.acts .quiet { margin-left: auto; background: none; color: var(--muted); font-weight: 400; }
+.big { min-height: 52px !important; padding: 0 32px !important; font-size: 17px; border: 0; border-radius: 14px; background: var(--go); color: var(--go-ink); font-weight: 700; cursor: pointer; }
+.raise { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex: 1 1 100%; }
+.raise input[type=range] { flex: 1 1 160px; accent-color: var(--gold); }
+.raise .go { min-height: 44px; padding: 0 18px; border: 0; border-radius: 12px; font-weight: 700; cursor: pointer; font-variant-numeric: tabular-nums; }
+.quick { display: flex; gap: 6px; }
+.quick button { min-height: 36px; padding: 0 12px; font-weight: 500; font-size: 13px; }
+.quick button.on { box-shadow: inset 0 0 0 1.5px var(--gold); }
+
+.say { display: flex; gap: 8px; }
+.say input { flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: rgba(0, 0, 0, .28); }
+.say input::placeholder { color: var(--muted); }
+.link { padding: 0; border: 0; background: none; color: var(--gold); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; font-size: 13px; }
+.talk { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.talk b { margin-right: 6px; color: var(--ink); font-weight: 600; }
+.talk li.ai b { color: var(--gold); }
+.past { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 420px; font-size: 13px; color: var(--muted); }
+.past li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; border-top: 1px solid rgba(255, 255, 255, .08); }
+.past .win { color: var(--win); }
+.past .lose { color: var(--lose); }
+
+@media (max-width: 480px) {
+  .table { min-height: 340px; border-radius: 120px / 90px; padding: 14px 8px; }
+  .card { width: 40px; height: 58px; }
+  .card b, .card i { font-size: 17px; }
+  .board { gap: 4px; }
+  .bar .ledger { font-size: 11px; }
+}
+
+/* ---- the seats' badges, blinds; the raise box; the talk beside the table ---- */
+.seat.human .who { padding-left: 12px; }
+.seat .badge { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: rgba(0, 0, 0, .35); color: var(--gold); font-weight: 700; font-size: 14px; }
+.muted.small { font-size: 13px; }
+
+/* 小盲 / 大盲：名字旁边一个小牌子 */
+.seat .blind { display: inline-grid; place-items: center; height: 20px; padding: 0 7px; border-radius: 999px; font: 600 11px/1 var(--font); white-space: nowrap; }
+.seat .blind.sb { background: #f4f1e8; color: #222; }
+.seat .blind.bb { background: var(--gold); color: #222; }
+
+/* 加注：快捷按钮 + 自己填的数 + 出手 */
+.raise .to { display: inline-flex; align-items: center; gap: 8px; flex: 1 1 150px; min-width: 0; font-size: 14px; color: var(--muted); }
+.raise .to input { flex: 1; min-width: 0; width: 100%; min-height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: rgba(0, 0, 0, .28);
+  color: var(--ink); font: 600 17px/1 var(--font); font-variant-numeric: tabular-nums; }
+.raise .to input:focus { outline: 2px solid var(--gold); outline-offset: 0; }
+.raise .to input[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--warn); }
+.raise .go:disabled { opacity: .55; cursor: default; }
+
+/* 这一场说的话：一个能上下滑的框，最新的在下面 */
+.talk { max-height: 260px; overflow-y: auto; overscroll-behavior: contain; padding: 8px 12px; border-radius: 12px; background: rgba(0, 0, 0, .16); }
+.talk li { line-height: 1.5; }
+.talk .hand { display: block; margin: 6px 0 2px; font-size: 11px; color: var(--muted); opacity: .8; }
+.talk li:first-child .hand { margin-top: 0; }
+@media (max-width: 560px) { .talk { max-height: 200px; } }
+
+/* the top bar: the title and the badge stay on one line; the ledger wraps instead */
+.bar h1, .bar .by { flex: none; white-space: nowrap; }
+.bar .ledger { min-width: 0; }
+
+/* wide screens: two columns, the table and buttons on the left, the talk and the say box on the right */
+.play { display: flex; flex-direction: column; gap: 12px; }
+.play > .main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.chat { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.talk .empty { color: var(--muted); opacity: .8; }
+/* narrow screens: the say box under the buttons, above the talk */
+@media (max-width: 899.98px) { .chat .say { order: -1; } }
+@media (min-width: 900px) {
+  .poker.playing { max-width: 1140px; }
+  .play { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: stretch; }
+  /* the column is as tall as the table and the buttons; the talk fills it and scrolls */
+  .chat .talk { flex: 1 1 0; min-height: 200px; max-height: none; contain: size; }
+}

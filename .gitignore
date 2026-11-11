@@ -1,0 +1,4 @@
+node_modules/
+web/dist/
+*.log
+.holdem-duet/
