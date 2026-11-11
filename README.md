@@ -19,7 +19,7 @@
 要 Node 20 以上。
 
 ```bash
-git clone https://github.com/nana-core/nanacore.git holdem-duet
+git clone https://github.com/nana-core/holdem-duet.git
 cd holdem-duet
 npm install
 npm run build
