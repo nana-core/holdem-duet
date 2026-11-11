@@ -6,11 +6,11 @@
 
 ## 为什么做这个
 
-我想和**正在聊天的那个 AI** 打一局牌：就在这个会话里，聊着聊着说「来一把？」，它说「来」，然后就开打；打完接着聊。
+我想和**正在聊天的那个 AI** 打牌：聊着聊着说「来一把？」，它说「来」，就在这个对话里开打，打完接着聊。所以这个项目只在意三件事：
 
-找了一圈没找到这样的东西。和 AI 打牌的项目不少，但它们多半是几个大模型互相比赛给人看，或者另开一个新的机器人当对手：那个对手不是你在聊的它，不记得你们刚才说了什么，也不会跟你斗嘴。
-
-所以这个项目只做一件事：给**你自己的 AI** 搬一张牌桌。它还在原来的会话里，用 MCP 工具看牌、出手、说话；你在浏览器里点按钮、打字。它记得这一场打到哪了、你刚才说了什么，打完还能聊两句，因为它从头到尾都是同一个它。
+1. **边打边聊**：它出手的时候顺手就能说一句，话直接显示在牌桌上，整场都留着。
+2. **少叫醒它**：自动模式下，只在轮到它的时候叫它，一步只叫一次；不用它一直挂着等，省额度，也不耽误它在别处跟你聊天。
+3. **就是你在聊的那个它**：不是另开的机器人。它只是多接了一个 MCP，工具也就四个：开局、看牌、出手、等轮到自己（自动模式下连等都不用，只有三个）。
 
 ## 有什么
 
@@ -123,7 +123,7 @@ MIT
 
 ## English
 
-Why: I wanted to play cards with the AI I was already talking to, right inside that conversation: ask "a hand?", it says yes, we play, and we keep talking afterwards. I couldn't find anything like that; poker-with-AI projects are mostly LLMs playing each other, or a fresh bot opponent that isn't the one you talk to and doesn't remember your conversation.
+Why: I wanted to play cards with the AI I was already talking to, right inside that conversation. Three things matter here: it can talk while it plays (a line with each move, shown at the table); it is woken as rarely as possible (in auto mode, once per move, only on its turn, so it never sits in a waiting loop); and it is simply your AI with one small MCP server added (four tools; three in auto mode).
 
 **holdem-duet** is a heads-up no-limit Texas hold'em table for you and *your* AI. You play in the browser; the AI plays through MCP tools (`poker_start`, `poker_wait`, `poker_act`, `poker_look`), and both of you can talk at the table. Neither side sees the other's hole cards before a showdown.
 
