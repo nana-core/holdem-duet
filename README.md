@@ -4,7 +4,13 @@
 
 ![牌桌](docs/screenshot.png)
 
-市面上的扑克 AI 多半是「机器人对手」：你看不到它在想什么，它也不会跟你说话。这个项目是给**你自己的 AI**（比如你一直在聊的那个 Claude）搬一张牌桌：它用 MCP 工具看牌、出手、说话；你在浏览器里点按钮、打字。它记得这一场打到哪了、刚才你说了什么，打完还能聊两句。
+## 为什么做这个
+
+我想和**正在聊天的那个 AI** 打一局牌：就在这个会话里，聊着聊着说「来一把？」，它说「来」，然后就开打；打完接着聊。
+
+找了一圈没找到这样的东西。和 AI 打牌的项目不少，但它们多半是几个大模型互相比赛给人看，或者另开一个新的机器人当对手：那个对手不是你在聊的它，不记得你们刚才说了什么，也不会跟你斗嘴。
+
+所以这个项目只做一件事：给**你自己的 AI** 搬一张牌桌。它还在原来的会话里，用 MCP 工具看牌、出手、说话；你在浏览器里点按钮、打字。它记得这一场打到哪了、你刚才说了什么，打完还能聊两句，因为它从头到尾都是同一个它。
 
 - 单挑（heads-up）无限注德州，各 2000 分，盲注 10/20，每手换庄家，打到一方输光或者你说结束
 - **它看不到你的牌**，你也看不到它的（摊牌或者你主动亮牌之后才看得到）；发牌用 `crypto.randomInt`，谁都改不了
@@ -114,6 +120,8 @@ MIT
 ---
 
 ## English
+
+Why: I wanted to play cards with the AI I was already talking to, right inside that conversation: ask "a hand?", it says yes, we play, and we keep talking afterwards. I couldn't find anything like that; poker-with-AI projects are mostly LLMs playing each other, or a fresh bot opponent that isn't the one you talk to and doesn't remember your conversation.
 
 **holdem-duet** is a heads-up no-limit Texas hold'em table for you and *your* AI. You play in the browser; the AI plays through MCP tools (`poker_start`, `poker_wait`, `poker_act`, `poker_look`), and both of you can talk at the table. Neither side sees the other's hole cards before a showdown.
 
